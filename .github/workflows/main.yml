@@ -1,0 +1,20 @@
+name: Stream Data to Telegram
+on:
+  workflow_dispatch:
+
+jobs:
+  transfer:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Start Streaming
+        env:
+          FILE_URL: ${{ secrets.FILE_URL }}
+          TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
+          CHAT_ID: ${{ secrets.CHAT_ID }}
+        run: python process.py
